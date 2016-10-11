@@ -139,6 +139,7 @@ function msg_processor(msg)
 	if msg.date < os.time() - 5 then return end -- Do not process old messages.
 	
 	if msg.text:match('^/start$') then
+	
 		api.sendMessage(msg.chat.id, '*Test*', true)
 	end
 	
@@ -199,7 +200,7 @@ while is_running do -- Start a loop witch receive messages.
 				elseif msg.message.reply_to_message then
 					rethink_reply(msg.message)
 				elseif msg.inline_query then
-					on_inline_receive(msg.inline_query)
+					msg_processor(msg.inline_query)
 				else
 					msg_processor(msg.message)
 				end
