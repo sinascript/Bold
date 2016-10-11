@@ -144,7 +144,7 @@ function msg_processor(msg)
 	
 	if msg.text:match('^/reload$') then
 		bot_run()
-		api.sendReply(msg, '*Test*', true)
+		api.sendReply(msg, '*Bot Reloaded!*', true)
 	end
 	
 	return
