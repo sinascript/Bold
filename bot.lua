@@ -89,6 +89,8 @@ end
 
 function bot_run()
 
+	utilities = dofile('utilities.lua') -- Load miscellaneous and cross-plugin functions.
+
     print(colors("%{red bright}"..logo))
 
 	print(colors('%{cyan bright}Loading config.lua...'))
@@ -103,8 +105,6 @@ function bot_run()
 	end
 
 	print(colors('%{cyan bright}Loading utilities.lua...'))
-	
-	utilities = dofile('utilities.lua') -- Load miscellaneous and cross-plugin functions.
 	
 	print(colors('%{cyan bright}Loading API functions table...'))
 	
