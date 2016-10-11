@@ -1,9 +1,12 @@
 HTTP = require('socket.http')
 HTTPS = require('ssl.https')
 URL = require('socket.url')
+JSON = (loadfile "./libs/dkjson.lua")()
+redis = require('redis')
 colors = (loadfile "./libs/ansicolors.lua")()
 client = Redis.connect('127.0.0.1', 6379)
 json = (loadfile "./libs/JSON.lua")()
+serpent = require('serpent')
 
 function check_config()
 
