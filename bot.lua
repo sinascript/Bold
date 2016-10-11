@@ -87,7 +87,7 @@ function get_what(msg)
 	
 end
 
-bot_run = function(on_reload) -- The function run when the bot is started or reloaded.
+function bot_run()
 
 	utilities = dofile('utilities.lua') -- Load miscellaneous and cross-plugin functions.
 
@@ -121,10 +121,6 @@ bot_run = function(on_reload) -- The function run when the bot is started or rel
 	bot = bot.result
 		
 	print(colors('%{yellow bright}BOT RUNNING : @'..bot.username .. ', AKA ' .. bot.first_name ..' ('..bot.id..')'))
-	
-	if on_reload then
-		api.sendMessage(config.admin, '*Bot started!* 🤖\n_'..os.date('On %A, %d %B %Y\nAt %X')..'_\n', true)
-	end
 
 	last_update = last_update or 0
 
