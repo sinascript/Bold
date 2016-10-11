@@ -143,6 +143,46 @@ function msg_processor(msg)
 	
 end
 
+function handle_inline_keyboards_cb(msg)
+	msg.text = '###cb:'..msg.data
+	msg.old_text = msg.message.text
+	msg.old_date = msg.message.date
+	msg.date = os.time()
+	msg.cb = true
+	msg.cb_id = msg.id
+	--msg.cb_table = JSON.decode(msg.data)
+	msg.message_id = msg.message.message_id
+	msg.chat = msg.message.chat
+	msg.message = nil
+	msg.target_id = msg.data:match('.*:(-?%d+)')
+	return msg_processor(msg)
+end
+
+function rethink_reply(msg)
+	msg.reply = msg.reply_to_message
+	if msg.reply.caption then
+		msg.reply.text = msg.reply.caption
+	end
+	return msg_processor(msg)
+end
+
+local function inline_to_msg(inline)
+	local msg = {
+		id = inline.id,
+    	chat = {
+      		id = inline.id,
+      		type = 'inline',
+      		title = inline.from.first_name
+    	},
+    	from = inline.from,
+		message_id = math.random(1,800),
+    	text = '###inline:'..inline.query,
+    	query = inline.query,
+    	date = os.time() + 100
+    }
+    return msg_processor(msg)
+end
+
 bot_run() -- Run main function
 
 while is_running do -- Start a loop witch receive messages.
@@ -150,7 +190,17 @@ while is_running do -- Start a loop witch receive messages.
 	if response then
 		for i,msg in ipairs(response.result) do
 			last_update = msg.update_id
-			msg_processor(msg.message)
+			if msg.message or msg.callback_query or msg.inline_query then
+				if msg.callback_query then
+					handle_inline_keyboards_cb(msg.callback_query)
+				elseif msg.message.reply_to_message then
+					rethink_reply(msg.message)
+				elseif msg.inline_query then
+					on_inline_receive(msg.inline_query)
+				else
+					msg_processor(msg.message)
+				end
+			end
 		end
 	else
 		print(colors("%{red bright}Conection Failed!"))
