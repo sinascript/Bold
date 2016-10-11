@@ -115,7 +115,7 @@ function bot_run()
 	bot = nil
 
 	while not bot do -- Get bot info
-		bot = getMe()
+		bot = api.getMe()
 	end
 
 	bot = bot.result
