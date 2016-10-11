@@ -108,7 +108,7 @@ function bot_run()
 	
 	print(colors('%{cyan bright}Loading API functions table...'))
 	
-	api = require('methods,lua') -- Load telegram api functions 
+	api = require('methods.lua') -- Load telegram api functions 
 	
 	print(colors('%{blue bright}Connecting To Telegram Servers...'))
 
