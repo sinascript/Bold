@@ -46,7 +46,7 @@ end
 function collect_stats(msg)
 
 	if msg.text:match('^/start$') then -- Save Users
-		if not client:sismember('BotUsers', msg.from.id)
+		if not client:sismember('BotUsers', msg.from.id) then
 			client:sadd('BotUsers', msg.from.id)
 		end
 		client:incr('StartsNumbers')
