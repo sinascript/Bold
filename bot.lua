@@ -122,7 +122,7 @@ bot_run = function(on_reload) -- The function run when the bot is started or rel
 		
 	print(colors('%{yellow bright}BOT RUNNING : @'..bot.username .. ', AKA ' .. bot.first_name ..' ('..bot.id..')'))
 	
-	if not on_reload then
+	if on_reload then
 		api.sendMessage(config.admin, '*Bot started!* 🤖\n_'..os.date('On %A, %d %B %Y\nAt %X')..'_\n', true)
 	end
 
