@@ -21,6 +21,28 @@ function check_config()
 	
 end
 
+function get_from(msg)
+
+	local user = msg.from.first_name
+	
+	if msg.from.last_name then
+	
+		user = user..' '..msg.from.last_name
+		
+	end
+	
+	if msg.from.username then
+	
+		user = user..' [@'..msg.from.username..']'
+		
+	end
+	
+	user = user..' ('..msg.from.id..')'
+	
+	return user
+	
+end
+
 function collect_stats(msg)
 
 	if msg.text:match('^/start$') then -- Save Users
@@ -34,6 +56,32 @@ function collect_stats(msg)
 		client:incr('MessagesTotal')
 	end
 
+end
+
+function get_what(msg)
+
+	if msg.sticker then
+		return 'sticker'
+	elseif msg.photo then
+		return 'photo'
+	elseif msg.document then
+		return 'document'
+	elseif msg.audio then
+		return 'audio'
+	elseif msg.video then
+		return 'video'
+	elseif msg.voice then
+		return 'voice'
+	elseif msg.contact then
+		return 'contact'
+	elseif msg.location then
+		return 'location'
+	elseif msg.text then
+		return 'text'
+	else
+		return 'service message'
+	end
+	
 end
 
 function bot_run()
@@ -79,12 +127,18 @@ end
 
 function msg_processor(msg)
 
+	print(colors('\nMessage Info:\t %{red bright}'..get_from(msg)..'%{reset}\n%{magenta bright}In -> '..msg.chat.type..' ['..msg.chat.id..'] %{reset}%{yellow bright}('..get_what(msg)..')%{reset}\n%{cyan bright}Date -> ('..os.date('on %A, %d %B %Y at %X')..')%{reset}'))		
+
 	collect_stats(msg) -- Saving Stats
 
 	if msg == nil then return end
 
 	if msg.date < os.time() - 5 then return end -- Do not process old messages.
-
+	
+	if msg.text:match('^/start$') then
+		api.sendMessage(msg.chat.id, '*Test*', true)
+	end
+	
 	return
 	
 end
