@@ -2,7 +2,7 @@ return {
 	bot_api_key = '',
 	admin = 179071599, -- Put Your Telegram Id Here
 	version = '2.0',
-	about = '',
+	about = 'Admin : @Mohammadarak\nThis is a simple bot writed in *Lua* and based on [GroupButler](https://github.com/RememberTheAir/GroupButler) and [FileManager](https://github.com/SEEDTEAM/file-manager-bot)\nSource :\nhttps://github.com/AviraTeam/Bold',
 	api_errors = {
 		[101] = 'Not enough rights to kick participant', --SUPERGROUP: bot is not admin
 		[102] = 'USER_ADMIN_INVALID', --SUPERGROUP: trying to kick an admin
