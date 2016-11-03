@@ -174,14 +174,23 @@ end
 
 function msg_processor(msg)
 
-	print(colors('\nMessage Info:\t %{red bright}'..get_from(msg)..'%{reset}\n%{magenta bright}In -> '..msg.chat.type..' ['..msg.chat.id..'] %{reset}%{yellow bright}('..get_what(msg)..')%{reset}\n%{cyan bright}Date -> ('..os.date('on %A, %d %B %Y at %X')..')%{reset}\n%{green bright}'..on_type(msg)..'%{reset}'))		
-
-	collect_stats(msg) -- Saving Stats
-
-	if msg == nil then return end
-
 	if msg.date < os.time() - 5 then return end -- Do not process old messages.
 	
+	if not msg then
+		api.sendMessage(config.admin, 'Shit, a loop without msg!')
+		return
+	end
+	
+	if not msg.text then msg.text = msg.caption or '' end
+	
+	if msg.text:match('^/start .+') then
+		msg.text = '/' .. msg.text:input()
+	end
+	
+	collect_stats(msg) -- Saving Stats
+	
+	print(colors('\nMessage Info:\t %{red bright}'..get_from(msg)..'%{reset}\n%{magenta bright}In -> '..msg.chat.type..' ['..msg.chat.id..'] %{reset}%{yellow bright}('..get_what(msg)..')%{reset}\n%{cyan bright}Date -> ('..os.date('on %A, %d %B %Y at %X')..')%{reset}\n%{green bright}'..on_type(msg)..'%{reset}'))		
+
 	if msg.text then
 	
 		if msg.text:match('^/start$') then
@@ -208,9 +217,12 @@ end
 
 function inline_processor(inline)
 
-	print(colors('\nInline Info:\t %{red bright}'..get_from(inline)..'%{reset}\n%{cyan bright}Date -> ('..os.date('on %A, %d %B %Y at %X')..')%{reset}%{yellow bright}'..is_text_inline(inline)..'%{reset}'))		
+	if not inline then
+		api.sendMessage(config.admin, 'Shit, a loop without inline!')
+		return
+	end
 
-	if inline == nil then return end
+	print(colors('\nInline Info:\t %{red bright}'..get_from(inline)..'%{reset}\n%{cyan bright}Date -> ('..os.date('on %A, %d %B %Y at %X')..')%{reset}%{yellow bright}'..is_text_inline(inline)..'%{reset}'))		
 	
 	if inline.query then
 	
