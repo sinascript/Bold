@@ -206,7 +206,7 @@ function msg_processor(msg)
 		
 		if msg.text:match('^/about$') then
 			api.sendChatAction(msg.chat.id, 'typing')
-			api.sendMessage(msg.chat.id, 'Admin : @Mohammadarak\nThis is a simple bot writed in *Lua* and based on [GroupButler](https://github.com/RememberTheAir/GroupButler) and [FileManager](https://github.com/SEEDTEAM/file-manager-bot)\nSource :\nhttps://github.com/AviraTeam/Bold', true)
+			api.sendMessage(msg.chat.id, 'Admin : @Mohammadarak\nThis is a simple bot writed in *Lua* and based on [GroupButler](https://github.com/RememberTheAir/GroupButler) and [FileManager](https://github.com/SEEDTEAM/file-manager-bot)\n\nSource :\nhttps://github.com/AviraTeam/Bold', true)
 		end
 		
 		if is_admin(msg) then
