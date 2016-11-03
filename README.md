@@ -1,2 +1,2 @@
-# MusicBot
-A Telegram Music Bot Based On Telegram Api Writen In Lua
+# Bold Bot
+A Telegram Bold Bot Based On Telegram Api Writen In Lua
