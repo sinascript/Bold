@@ -236,7 +236,7 @@ function inline_processor(inline)
 	
 		local text = inline.query
 	
-		if not text:match('^([)([A-Z-a-z-0-9])(])(%p+)([A-Z-a-z-0-9])(%p+)$') then
+		if not text:match('^(%p+)(.*)(%p+)(%p+)(.*)(%p+)$') then
 		
 		local qresult = {{},{},{}}
 		
