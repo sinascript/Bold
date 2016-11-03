@@ -225,6 +225,10 @@ function inline_processor(inline)
 		api.sendMessage(config.admin, 'Shit, a loop without inline!')
 		return
 	end
+	
+	if not inline.query or inline.query == '' then
+		return false
+	end
 
 	print(colors('\nInline Info:\t %{red bright}'..get_from(inline)..'%{reset}\n%{cyan bright}Date -> ('..os.date('on %A, %d %B %Y at %X')..')%{reset}%{yellow bright}'..is_text_inline(inline)..'%{reset}'))		
 	
