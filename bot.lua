@@ -160,8 +160,8 @@ end
 
 function is_text_inline(inline)
 
-	if inline.query then
-		return 'Text -> [ "'..inline.query..'" ]'
+	if inline.query and not inline.query == '' then
+		return '\nText -> [ "'..inline.query..'" ]'
 	else
 		return ''
 	end
