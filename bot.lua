@@ -173,7 +173,7 @@ end
 
 function inline_processor(inline)
 
-	print(colors('\Inline Info:\t %{red bright}'..get_from(inline)..'%{reset}\n%{cyan bright}Date -> ('..os.date('on %A, %d %B %Y at %X')..')%{reset}%{yellow bright}'..is_text_inline(inline)..'%{reset}'))		
+	print(colors('\nInline Info:\t %{red bright}'..get_from(inline)..'%{reset}\n%{cyan bright}Date -> ('..os.date('on %A, %d %B %Y at %X')..')%{reset}%{yellow bright}'..is_text_inline(inline)..'%{reset}'))		
 
 	if inline == nil then return end
 	
