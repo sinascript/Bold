@@ -1,5 +1,5 @@
 # Bold
-[@Bold](https://telegram.me/bold) Source :)
+A simple telegram bot writed in lua based on [GroupButler](https://github.com/RememberTheAir/GroupButler) and [FileManager](https://github.com/SEEDTEAM/file-manager-bot)
 
 **Requirements**
 - `libreadline-dev`
