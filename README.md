@@ -9,7 +9,7 @@ A simple telegram bot writed in lua based on [GroupButler](https://github.com/Re
 - `libssl-dev`
 - `git`
 - `luasocket-http`
-- `luasocket.https`
+- `luasocket-https`
 - `curl`
 - `serpent`
 
