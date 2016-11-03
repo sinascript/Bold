@@ -160,7 +160,7 @@ end
 
 function is_text_inline(inline)
 
-	if inline.text then
+	if inline.query then
 		return 'Text -> [ "'..inline.query..'" ]'
 	else
 		return ''
@@ -207,7 +207,7 @@ function inline_processor(inline)
 		
 		local qresult = {{},{},{},{}}
 		
-		qresult[1].id= inline.id
+		qresult[1].id= '1'
 		qresult[1].title = 'Bold'
 		qresult[1].type = 'article'
 		qresult[1].description = '*'..text..'*'
@@ -215,7 +215,7 @@ function inline_processor(inline)
 		qresult[1].message_text = '*'..text..'*'
 		qresult[1].parse_mode = 'Markdown'
 		
-		qresult[2].id= inline.id
+		qresult[2].id= '2'
 		qresult[2].title = 'Italic'
 		qresult[2].type = 'article'
 		qresult[2].description = '_'..text..'_'
@@ -223,7 +223,7 @@ function inline_processor(inline)
 		qresult[2].message_text = '_'..text..'_'
 		qresult[2].parse_mode = 'Markdown'
 		
-		qresult[3].id= inline.id
+		qresult[3].id= '3'
 		qresult[3].title = 'Fixedsys'
 		qresult[3].type = 'article'
 		qresult[3].description = '`'..text..'`'
@@ -231,7 +231,7 @@ function inline_processor(inline)
 		qresult[3].message_text = '`'..text..'`'
 		qresult[3].parse_mode = 'Markdown'
 		
-		qresult[4].id= inline.id
+		qresult[4].id= '4'
 		qresult[4].title = 'Custom'
 		qresult[4].type = 'article'
 		qresult[4].description = text
