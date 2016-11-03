@@ -56,6 +56,6 @@ $ sudo chmod 777 launch.sh
 
 [Mohammad Mahdi](https://github.com/mohammadarak) ([Telegram](https://telegram.me/mohammadarak))
 
-### Our Telegram channels:
+### Our Telegram Channel:
 
-English: [@AviraTeam](https://telegram.me/AviraTeam)
+Persian : [@AviraTeam](https://telegram.me/AviraTeam)
