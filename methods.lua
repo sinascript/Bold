@@ -1,7 +1,5 @@
 local BASE_URL = 'https://api.telegram.org/bot' .. config.bot_api_key
 
-local PWR_URL = 'https://api.pwrtelegram.xyz/bot' .. config.bot_api_key
-
 local function getCode(error)
 	error = error:gsub('%[Error : %d%d%d : Bad Request: ', ''):gsub('%]', '')
 	error = error:gsub('%[Error : 400 : ', ''):gsub('%]', '')
@@ -92,58 +90,6 @@ local function sendMessage(chat_id, text, use_markdown, disable_web_page_preview
 
 end
 
-local function sendReply(msg, text, markd, send_sound)
-
-	return sendMessage(msg.chat.id, text, markd, true, msg.message_id, send_sound)
-
-end
-
-local function editMessageText(chat_id, message_id, text, keyboard, markdown)
-	
-	local url = BASE_URL .. '/editMessageText?chat_id=' .. chat_id .. '&message_id='..message_id..'&text=' .. URL.escape(text)
-	
-	if markdown then
-		url = url .. '&parse_mode=Markdown'
-	end
-	
-	url = url .. '&disable_web_page_preview=true'
-	
-	if keyboard then
-		url = url..'&reply_markup='..JSON.encode(keyboard)
-	end
-	
-	return sendRequest(url)
-
-end
-
-local function answerCallbackQuery(callback_query_id, text, show_alert)
-	
-	local url = BASE_URL .. '/answerCallbackQuery?callback_query_id=' .. callback_query_id .. '&text=' .. URL.escape(text)
-	
-	if show_alert then
-		url = url..'&show_alert=true'
-	end
-	
-	return sendRequest(url)
-	
-end
-
-local function sendKeyboard(chat_id, text, keyboard, markdown)
-	
-	local url = BASE_URL .. '/sendMessage?chat_id=' .. chat_id
-	
-	if markdown then
-		url = url .. '&parse_mode=Markdown'
-	end
-	
-	url = url..'&text='..URL.escape(text)
-	
-	url = url..'&reply_markup='..JSON.encode(keyboard)
-	
-	return sendRequest(url)
-
-end
-
 local function sendChatAction(chat_id, action)
  -- Support actions are typing, upload_photo, record_video, upload_video, record_audio, upload_audio, upload_document, find_location
 
@@ -152,71 +98,11 @@ local function sendChatAction(chat_id, action)
 
 end
 
-local function forwardMessage(chat_id, from_chat_id, message_id)
-
-	local url = BASE_URL .. '/forwardMessage?chat_id=' .. chat_id .. '&from_chat_id=' .. from_chat_id .. '&message_id=' .. message_id
-
-	return sendRequest(url)
-	
-end
-
 local function curlRequest(curl_command)
  -- Use at your own risk. Will not check for success.
 
 	io.popen(curl_command)
 
-end
-
-local function sendPhoto(chat_id, photo, caption, reply_to_message_id)
-
-	local url = BASE_URL .. '/sendPhoto'
-
-	local curl_command = 'curl "' .. url .. '" -F "chat_id=' .. chat_id .. '" -F "photo=@' .. photo .. '"'
-
-	if reply_to_message_id then
-		curl_command = curl_command .. ' -F "reply_to_message_id=' .. reply_to_message_id .. '"'
-	end
-
-	if caption then
-		curl_command = curl_command .. ' -F "caption=' .. caption .. '"'
-	end
-
-	return curlRequest(curl_command)
-
-end
-
-local function sendAudio(chat_id, audio, reply_to_message_id, duration, performer, title)
-
-	local url = BASE_URL .. '/sendAudio'
-
-	local curl_command = 'curl "' .. url .. '" -F "chat_id=' .. chat_id .. '" -F "audio=@' .. audio .. '"'
-
-	if reply_to_message_id then
-		curl_command = curl_command .. ' -F "reply_to_message_id=' .. reply_to_message_id .. '"'
-	end
-
-	if duration then
-		curl_command = curl_command .. ' -F "duration=' .. duration .. '"'
-	end
-
-	if performer then
-		curl_command = curl_command .. ' -F "performer=' .. performer .. '"'
-	end
-
-	if title then
-		curl_command = curl_command .. ' -F "title=' .. title .. '"'
-	end
-
-	return curlRequest(curl_command)
-
-end
-
-local function leaveChat(chat_id)
-	
-	local url = BASE_URL .. '/leaveChat?chat_id=' .. chat_id
-	
-	return sendRequest(url)
-	
 end
 
 local function sendInline(inline_query_id, results, cache_time, is_personal, next_offset)
@@ -250,23 +136,14 @@ return 	io.popen(curl_command)
 end
 
 return {
-	leaveChat = leaveChat,
 	getMe = getMe,
 	getUpdates = getUpdates,
 	getCode = getCode,
 	
 	sendMessage = sendMessage,
 	sendRequest = sendRequest,
-	sendAudio = sendAudio,
-	sendPhoto = sendPhoto,
 	sendInline = sendInline,
-	sendReply = sendReply,
-	sendKeyboard = sendKeyboard,
-	forwardMessage = forwardMessage,
 	sendChatAction = sendChatAction,
 	
-	editMessageText = editMessageText,
-	
-	answerCallbackQuery = answerCallbackQuery,
 	curlRequest = curlRequest
-}	
+}
