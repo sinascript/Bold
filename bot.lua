@@ -160,7 +160,7 @@ end
 
 function is_text_inline(inline)
 
-	if inline.query and not inline.query == nil then
+	if inline.query then
 		return '\nText -> [ "'..inline.query..'" ]'
 	else
 		return ''
