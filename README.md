@@ -49,6 +49,7 @@ $ sudo chmod 777 launch.sh
 **Before you do anything else, open config.lua (in a text editor) and make the following changes:**
 
 > • Set `bot_api_key` to the authentication token that you received from [@BotFather](http://telegram.me/BotFather) in `config.lua`.
+>
 > • Set `admin` telegram id in `config.lua`.
 
 # Developer :
