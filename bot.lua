@@ -161,7 +161,7 @@ end
 function is_text_inline(inline)
 
 	if inline.text then
-		return 'Text -> [ "'..inline.text..'" ]'
+		return 'Text -> [ "'..inline.query..'" ]'
 	else
 		return ''
 	end
@@ -201,9 +201,9 @@ function inline_processor(inline)
 
 	if inline == nil then return end
 	
-	if inline.text:match('(.*)') then
+	if inline.query then
 	
-		local text = inline.text
+		local text = inline.query
 		
 		local qresult = {{},{},{}}
 		
