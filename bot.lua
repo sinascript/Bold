@@ -18,7 +18,7 @@ function check_config()
 		
 	elseif not config.admin or config.admin == '' then
 	
-		return 'ADMIN ID MISSING!'
+		return 'ADMIN TELEGRAM ID MISSING!'
 		
 	end
 	
