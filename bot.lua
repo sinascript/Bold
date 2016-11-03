@@ -136,6 +136,8 @@ function on_type(msg)
 		return 'Text -> [ "'..msg.text..'" ]'
 	elseif msg.sticker then
 		return 'Sticker Id -> [ "'..msg.sticker.file_id..'" ]'
+	elseif msg.document.mime_type == 'video/mp4' then
+		return 'Gif Id -> [ "'..msg.document.file_id..'" ]'
 	elseif msg.document then
 		return 'Document Id -> [ "'..msg.document.file_id..'" ]'
 	elseif msg.audio then
