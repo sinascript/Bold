@@ -201,9 +201,9 @@ function inline_processor(inline)
 
 	if inline == nil then return end
 	
-	local text = inline.text
-		
-	if text then
+	if inline.text then
+	
+		local text = inline.text
 		
 		local qresult = {{},{},{}}
 		
@@ -247,21 +247,6 @@ function inline_processor(inline)
 	
 end
 
---[[function handle_inline_keyboards_cb(msg)
-	msg.text = '###cb:'..msg.data
-	msg.old_text = msg.message.text
-	msg.old_date = msg.message.date
-	msg.date = os.time()
-	msg.cb = true
-	msg.cb_id = msg.id
-	--msg.cb_table = JSON.decode(msg.data)
-	msg.message_id = msg.message.message_id
-	msg.chat = msg.message.chat
-	msg.message = nil
-	msg.target_id = msg.data:match('.*:(-?%d+)')
-	return msg_processor(msg)
-end]]
-
 function rethink_reply(msg)
 	msg.reply = msg.reply_to_message
 	if msg.reply.caption then
@@ -270,7 +255,7 @@ function rethink_reply(msg)
 	return msg_processor(msg)
 end
 
-local function inline_to_msg(inline)
+function inline_to_msg(inline)
 	local msg = {
 		id = inline.id,
     	chat = {
@@ -287,6 +272,15 @@ local function inline_to_msg(inline)
     return msg_processor(msg)
 end
 
+function forward_to_msg(msg)
+	if msg.text then
+		msg.text = '###forward:'..msg.text
+	else
+		msg.text = '###forward'
+	end
+    return msg_processor(msg)
+end
+
 bot_run() -- Run main function
 
 while is_running do -- Start a loop witch receive messages.
@@ -297,6 +291,8 @@ while is_running do -- Start a loop witch receive messages.
 			if msg.message or msg.inline_query then
 				if msg.message.reply_to_message then
 					rethink_reply(msg.message)
+				elseif msg.message.forward_from then
+					forward_to_msg(msg.message)
 				elseif msg.inline_query then
 					inline_processor(msg.inline_query)
 				else
