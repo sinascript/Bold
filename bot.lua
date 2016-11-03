@@ -160,13 +160,17 @@ function msg_processor(msg)
 
 	if msg.date < os.time() - 5 then return end -- Do not process old messages.
 	
-	if msg.text:match('^/start$') then
-		api.sendMessage(msg.chat.id, '*Test*', true)
-	end
+	if msg.text then
 	
-	if msg.text:match('^/reload$') then
-		bot_run()
-		api.sendReply(msg, '*Bot Reloaded!*', true)
+		if msg.text:match('^/start$') then
+			api.sendMessage(msg.chat.id, '*Test*', true)
+		end
+	
+		if msg.text:match('^/reload$') then
+			bot_run()
+			api.sendReply(msg, '*Bot Reloaded!*', true)
+		end
+	
 	end
 	
 	return
