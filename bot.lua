@@ -130,12 +130,28 @@ function bot_run()
 
 end
 
-function is_text(msg)
+function on_type(msg)
 
 	if msg.text then
-		return 'Text -> ['..msg.text..']'
-	else
+		return 'Text -> [ "'..msg.text..'" ]'
+	elseif msg.sticker then
+		return 'Sticker Id -> [ "'..msg.sticker.file_id..' " ]'
+	elseif msg.document then
+		return 'Document Id -> [ "'..msg.document.file_id..' " ]'
+	elseif msg.audio then
+		return 'Audio Id -> [ "'..msg.audio.file_id..' " ]'
+	elseif msg.video then
+		return 'Video Id -> [ "'..msg.video.file_id..' " ]'
+	elseif msg.voice then
+		return 'Voice Id -> [ "'..msg.voice.file_id..' " ]'
+	elseif msg.contact then
+		return 'Phone Number -> [ "'..msg.contact.phone_number..' " ]'
+	elseif msg.location then
+		return 'Coordinates Location -> [ '..msg.location.longitude..'X'..msg.location.latitude..' ]'
+	elseif msg.photo then
 		return ''
+	else
+		return 'Service Message!!!'
 	end
 
 end
@@ -143,7 +159,7 @@ end
 function is_text_inline(inline)
 
 	if inline.text then
-		return 'Text -> ['..inline.text..']'
+		return 'Text -> [ "'..inline.text..'" ]'
 	else
 		return ''
 	end
@@ -152,7 +168,7 @@ end
 
 function msg_processor(msg)
 
-	print(colors('\nMessage Info:\t %{red bright}'..get_from(msg)..'%{reset}\n%{magenta bright}In -> '..msg.chat.type..' ['..msg.chat.id..'] %{reset}%{yellow bright}('..get_what(msg)..')%{reset}\n%{cyan bright}Date -> ('..os.date('on %A, %d %B %Y at %X')..')%{reset}\n%{green bright}'..is_text(msg)..'%{reset}'))		
+	print(colors('\nMessage Info:\t %{red bright}'..get_from(msg)..'%{reset}\n%{magenta bright}In -> '..msg.chat.type..' ['..msg.chat.id..'] %{reset}%{yellow bright}('..get_what(msg)..')%{reset}\n%{cyan bright}Date -> ('..os.date('on %A, %d %B %Y at %X')..')%{reset}\n%{green bright}'..on_type(msg)..'%{reset}'))		
 
 	collect_stats(msg) -- Saving Stats
 
