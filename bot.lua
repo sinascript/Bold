@@ -165,7 +165,11 @@ end
 function is_text_inline(inline)
 
 	if inline.query then
-		return '\nText -> [ "'..inline.query..'" ]'
+		if inline.query == '' then
+			return ''
+		else
+			return '\nText -> [ "'..inline.query..'" ]'
+		end
 	else
 		return ''
 	end
@@ -228,7 +232,7 @@ function inline_processor(inline)
 	
 		local text = inline.query
 	
-		if not text:match('^[(.*)]((.*))$') then
+		if not text:match('^$') then
 		
 		local qresult = {{},{},{}}
 		
