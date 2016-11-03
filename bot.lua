@@ -227,6 +227,36 @@ function inline_processor(inline)
 	if inline.query then
 	
 		local text = inline.query
+	
+		if not text:match('^[(.*)]([A-Z-a-z-0-9])$') then
+		
+		local qresult = {{},{},{}}
+		
+		qresult[1].id= '1'
+		qresult[1].title = 'Bold'
+		qresult[1].type = 'article'
+		qresult[1].description = '*'..text..'*'
+		qresult[1].thumb_url = 'http://s6.picofile.com/file/8247733176/B.png'
+		qresult[1].message_text = '*'..text..'*'
+		qresult[1].parse_mode = 'Markdown'
+		
+		qresult[2].id= '2'
+		qresult[2].title = 'Italic'
+		qresult[2].type = 'article'
+		qresult[2].description = '_'..text..'_'
+		qresult[2].thumb_url = 'http://s7.picofile.com/file/8247733234/I.png'
+		qresult[2].message_text = '_'..text..'_'
+		qresult[2].parse_mode = 'Markdown'
+		
+		qresult[3].id= '3'
+		qresult[3].title = 'Fixedsys'
+		qresult[3].type = 'article'
+		qresult[3].description = '`'..text..'`'
+		qresult[3].thumb_url = 'http://s7.picofile.com/file/8247733776/C2.png'
+		qresult[3].message_text = '`'..text..'`'
+		qresult[3].parse_mode = 'Markdown'
+		
+		else
 		
 		local qresult = {{},{},{},{}}
 		
@@ -262,9 +292,11 @@ function inline_processor(inline)
 		qresult[4].message_text = text
 		qresult[4].parse_mode = 'Markdown'
 		
-		api.sendInline(inline.id, qresult, 'Markdown')
 		
+		end
 	end
+	
+	api.sendInline(inline.id, qresult, 'Markdown')
 	
 	return
 	
