@@ -128,9 +128,29 @@ function bot_run()
 
 end
 
+function is_text(msg)
+
+	if msg.text then
+		return 'Text -> ['..msg.text..']'
+	else
+		return ''
+	end
+
+end
+
+function is_text_inline(inline)
+
+	if inline.text then
+		return 'Text -> ['..inline.text..']'
+	else
+		return ''
+	end
+
+end
+
 function msg_processor(msg)
 
-	print(colors('\nMessage Info:\t %{red bright}'..get_from(msg)..'%{reset}\n%{magenta bright}In -> '..msg.chat.type..' ['..msg.chat.id..'] %{reset}%{yellow bright}('..get_what(msg)..')%{reset}\n%{cyan bright}Date -> ('..os.date('on %A, %d %B %Y at %X')..')%{reset}'))		
+	print(colors('\nMessage Info:\t %{red bright}'..get_from(msg)..'%{reset}\n%{magenta bright}In -> '..msg.chat.type..' ['..msg.chat.id..'] %{reset}%{yellow bright}('..get_what(msg)..')%{reset}\n%{cyan bright}Date -> ('..os.date('on %A, %d %B %Y at %X')..')%{reset}\n%{green bright}'..is_text(msg)..'%{reset}'))		
 
 	collect_stats(msg) -- Saving Stats
 
@@ -151,7 +171,59 @@ function msg_processor(msg)
 	
 end
 
-function handle_inline_keyboards_cb(msg)
+function inline_processor(inline)
+
+	print(colors('\Inline Info:\t %{red bright}'..get_from(inline)..'%{reset}\n%{cyan bright}Date -> ('..os.date('on %A, %d %B %Y at %X')..')%{reset}%{yellow bright}'..is_text_inline(inline)..'%{reset}'))		
+
+	if inline == nil then return end
+	
+	local text = inline.text
+		
+	if text then
+		
+		local qresult = {{},{},{}}
+		
+		qresult[1].id= inline.id
+		qresult[1].title = 'Bold'
+		qresult[1].type = 'article'
+		qresult[1].description = '*'..text..'*'
+		qresult[1].thumb_url = 'http://s6.picofile.com/file/8247733176/B.png'
+		qresult[1].message_text = '*'..text..'*'
+		qresult[1].parse_mode = 'Markdown'
+		
+		qresult[2].id= inline.id
+		qresult[2].title = 'Italic'
+		qresult[2].type = 'article'
+		qresult[2].description = '_'..text..'_'
+		qresult[2].thumb_url = 'http://s7.picofile.com/file/8247733234/I.png'
+		qresult[2].message_text = '_'..text..'_'
+		qresult[2].parse_mode = 'Markdown'
+		
+		qresult[3].id= inline.id
+		qresult[3].title = 'Fixedsys'
+		qresult[3].type = 'article'
+		qresult[3].description = '`'..text..'`'
+		qresult[3].thumb_url = 'http://s7.picofile.com/file/8247733776/C2.png'
+		qresult[3].message_text = '`'..text..'`'
+		qresult[3].parse_mode = 'Markdown'
+		
+		qresult[4].id= inline.id
+		qresult[4].title = 'Custom'
+		qresult[4].type = 'article'
+		qresult[4].description = text
+		qresult[4].thumb_url = 'http://s6.picofile.com/file/8247733200/custom.png'
+		qresult[4].message_text = text
+		qresult[4].parse_mode = 'Markdown'
+		
+		api.sendInline(inline.id, qresult, 'Markdown')
+		
+	end
+	
+	return
+	
+end
+
+--[[function handle_inline_keyboards_cb(msg)
 	msg.text = '###cb:'..msg.data
 	msg.old_text = msg.message.text
 	msg.old_date = msg.message.date
@@ -164,7 +236,7 @@ function handle_inline_keyboards_cb(msg)
 	msg.message = nil
 	msg.target_id = msg.data:match('.*:(-?%d+)')
 	return msg_processor(msg)
-end
+end]]
 
 function rethink_reply(msg)
 	msg.reply = msg.reply_to_message
@@ -198,13 +270,11 @@ while is_running do -- Start a loop witch receive messages.
 	if response then
 		for i,msg in ipairs(response.result) do
 			last_update = msg.update_id
-			if msg.message or msg.callback_query or msg.inline_query then
-				if msg.callback_query then
-					handle_inline_keyboards_cb(msg.callback_query)
-				elseif msg.message.reply_to_message then
+			if msg.message or msg.inline_query then
+				if msg.message.reply_to_message then
 					rethink_reply(msg.message)
 				elseif msg.inline_query then
-					msg_processor(msg.inline_query)
+					inline_processor(msg.inline_query)
 				else
 					msg_processor(msg.message)
 				end
