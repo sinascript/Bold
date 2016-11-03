@@ -228,7 +228,7 @@ function inline_processor(inline)
 	
 		local text = inline.query
 	
-		if not text:match('^[(.*)]([A-Z-a-z-0-9])$') then
+		if not text:match('^([)(.*)(])([A-Z-a-z-0-9])$') then
 		
 		local qresult = {{},{},{}}
 		
@@ -255,6 +255,8 @@ function inline_processor(inline)
 		qresult[3].thumb_url = 'http://s7.picofile.com/file/8247733776/C2.png'
 		qresult[3].message_text = '`'..text..'`'
 		qresult[3].parse_mode = 'Markdown'
+		
+			api.sendInline(inline.id, qresult, 'Markdown')
 		
 		else
 		
@@ -292,12 +294,11 @@ function inline_processor(inline)
 		qresult[4].message_text = text
 		qresult[4].parse_mode = 'Markdown'
 		
-		
+			api.sendInline(inline.id, qresult, 'Markdown')
+
 		end
 	end
-	
-	api.sendInline(inline.id, qresult, 'Markdown')
-	
+		
 	return
 	
 end
