@@ -183,12 +183,19 @@ function msg_processor(msg)
 		if msg.text:match('^/start$') then
 			api.sendMessage(msg.chat.id, '*Test*', true)
 		end
-	
-		if msg.text:match('^/reload$') then
-			bot_run()
-			api.sendReply(msg, '*Bot Reloaded!*', true)
+		
+		if is_admin(msg) then
+		
+			if msg.text:match('^/reload$') then
+				bot_run()
+				api.sendReply(msg, '*Bot Reloaded!*', true)
+			end
+		
+			if msg.text:match('^/update$') then
+				io.popen('git pull'):read('*all')
+				api.sendReply(msg, '*Source Updated!*', true)
+			end
 		end
-	
 	end
 	
 	return
