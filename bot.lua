@@ -135,17 +135,17 @@ function on_type(msg)
 	if msg.text then
 		return 'Text -> [ "'..msg.text..'" ]'
 	elseif msg.sticker then
-		return 'Sticker Id -> [ "'..msg.sticker.file_id..' " ]'
+		return 'Sticker Id -> [ "'..msg.sticker.file_id..'" ]'
 	elseif msg.document then
-		return 'Document Id -> [ "'..msg.document.file_id..' " ]'
+		return 'Document Id -> [ "'..msg.document.file_id..'" ]'
 	elseif msg.audio then
-		return 'Audio Id -> [ "'..msg.audio.file_id..' " ]'
+		return 'Audio Id -> [ "'..msg.audio.file_id..'" ]'
 	elseif msg.video then
-		return 'Video Id -> [ "'..msg.video.file_id..' " ]'
+		return 'Video Id -> [ "'..msg.video.file_id..'" ]'
 	elseif msg.voice then
-		return 'Voice Id -> [ "'..msg.voice.file_id..' " ]'
+		return 'Voice Id -> [ "'..msg.voice.file_id..'" ]'
 	elseif msg.contact then
-		return 'Phone Number -> [ "'..msg.contact.phone_number..' " ]'
+		return 'Phone Number -> [ "'..msg.contact.phone_number..'" ]'
 	elseif msg.location then
 		return 'Coordinates Location -> [ '..msg.location.longitude..'X'..msg.location.latitude..' ]'
 	elseif msg.photo then
