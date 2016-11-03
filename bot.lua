@@ -200,10 +200,12 @@ function msg_processor(msg)
 	local start_text = 'This bot can help you send bold or italic text to your chat partners. It works automatically, no need to add it anywhere. Simply open any of your chats and type `@bold` and the text you want to send in the message field. Then tap on one of the options to send the text in bold, italic or monowidth fonts.'
 	
 		if msg.text:match('^/start$') then
+			api.sendChatAction(msg.chat.id, 'typing')
 			api.sendMessage(msg.chat.id, start_text, true)
 		end
 		
 		if msg.text:match('^/about$') then
+			api.sendChatAction(msg.chat.id, 'typing')
 			api.sendMessage(msg.chat.id, config.about, true)
 		end
 		
@@ -211,6 +213,7 @@ function msg_processor(msg)
 		
 			if msg.text:match('^/reload$') then
 				bot_run()
+				api.sendChatAction(msg.chat.id, 'typing')
 				api.sendReply(msg, '*Bot Reloaded!*', true)
 			end
 			
