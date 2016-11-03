@@ -83,7 +83,6 @@ local function sendMessage(chat_id, text, use_markdown, disable_web_page_preview
 	
 	if not res and code then --if the request failed and a code is returned (not 403 and 429)
 		print('Delivery failed')
-		save_log('send_msg', text)
 	end
 	
 	return res, code --return false, and the code
