@@ -197,8 +197,14 @@ function msg_processor(msg)
 
 	if msg.text then
 	
+	local start_text = 'This bot can help you send bold or italic text to your chat partners. It works automatically, no need to add it anywhere. Simply open any of your chats and type `@bold` and the text you want to send in the message field. Then tap on one of the options to send the text in bold, italic or monowidth fonts.'
+	
 		if msg.text:match('^/start$') then
-			api.sendMessage(msg.chat.id, '*Test*', true)
+			api.sendMessage(msg.chat.id, start_text, true)
+		end
+		
+		if msg.text:match('^/about$') then
+			api.sendMessage(msg.chat.id, 'Admin : @Mohammadarak\nThis is a simple bot writed in *Lua* and based on [GroupButler](https://github.com/RememberTheAir/GroupButler)\nSource :\nhttps://github.com/AviraTeam/Boldbot', true)
 		end
 		
 		if is_admin(msg) then
@@ -207,12 +213,9 @@ function msg_processor(msg)
 				bot_run()
 				api.sendReply(msg, '*Bot Reloaded!*', true)
 			end
-		
-			if msg.text:match('^/update$') then
-				io.popen('git pull'):read('*all')
-				api.sendReply(msg, '*Source Updated!*', true)
-			end
+			
 		end
+		
 	end
 	
 	return
@@ -317,23 +320,6 @@ function rethink_reply(msg)
 		msg.reply.text = msg.reply.caption
 	end
 	return msg_processor(msg)
-end
-
-function inline_to_msg(inline)
-	local msg = {
-		id = inline.id,
-    	chat = {
-      		id = inline.id,
-      		type = 'inline',
-      		title = inline.from.first_name
-    	},
-    	from = inline.from,
-		message_id = math.random(1,800),
-    	text = '###inline:'..inline.query,
-    	query = inline.query,
-    	date = os.time() + 100
-    }
-    return msg_processor(msg)
 end
 
 function forward_to_msg(msg)
