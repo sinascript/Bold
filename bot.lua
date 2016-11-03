@@ -201,7 +201,7 @@ function inline_processor(inline)
 
 	if inline == nil then return end
 	
-	if inline.text then
+	if inline.text:match('(.*)') then
 	
 		local text = inline.text
 		
