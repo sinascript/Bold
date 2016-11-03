@@ -205,7 +205,7 @@ function inline_processor(inline)
 	
 		local text = inline.query
 		
-		local qresult = {{},{},{}}
+		local qresult = {{},{},{},{}}
 		
 		qresult[1].id= inline.id
 		qresult[1].title = 'Bold'
