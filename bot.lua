@@ -124,7 +124,11 @@ function bot_run()
 		
 	print(colors('%{yellow bright}BOT RUNNING : @'..bot.username .. ', AKA ' .. bot.first_name ..' ('..bot.id..')'))
 
+	math.randomseed(os.time())
+	math.random()
+	
 	last_update = last_update or 0
+	last_cron = last_cron or os.time()
 
 	is_running = true
 
