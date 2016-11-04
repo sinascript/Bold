@@ -182,6 +182,10 @@ function get_bot_stats()
 	local msgs = client:get('MessagesTotal')
 	local users = client:smembers('BotUsers')
 	
+	local start = ''
+	local users = ''
+	local msgs = ''
+	
 	if users then
 		for i=1, #users do
 			local users_count = i
