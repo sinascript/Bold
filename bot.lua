@@ -176,6 +176,36 @@ function is_text_inline(inline)
 
 end
 
+function get_bot_stats()
+	
+	local start = client:get('StartsNumbers')
+	local msgs = client:get('MessagesTotal')
+	local users = client:smembers('BotUsers')
+	
+	if users then
+		for i=1, #users do
+			local users_count = i
+		end
+	else
+		local users_count = '0'
+	end
+	
+	if msgs then
+		local msgs_count = msgs
+	else
+		local msgs_count = '0'
+	end
+	
+	if start then
+		local starts = start
+	else
+		local starts = '0'
+	end
+	
+	return '#Stats\n*Members* : `'..users_count..'`\n*Messages* : `'..msgs_count..'`\n*Starts* : `'..starts..'`\n'
+	
+end
+
 function msg_processor(msg)
 
 	if msg.date < os.time() - 5 then return end -- Do not process old messages.
@@ -209,7 +239,7 @@ function msg_processor(msg)
 			api.sendMessage(msg.chat.id, 'Admin : @Mohammadarak\nThis is a simple bot writed in *Lua* and based on [GroupButler](https://github.com/RememberTheAir/GroupButler) and [FileManager](https://github.com/SEEDTEAM/file-manager-bot)\n\nSource :\nhttps://github.com/AviraTeam/Bold', true)
 		end
 		
-		if is_admin(msg) then
+		if is_admin(msg) then -- Admin Commands
 		
 			if msg.text:match('^/reload$') then
 				bot_run()
@@ -217,6 +247,11 @@ function msg_processor(msg)
 				api.sendReply(msg, '*Bot Reloaded!*', true)
 			end
 			
+			if msg.text:match('^/stats$') then
+				local stats = get_bot_stats()
+				api.sendChatAction(msg.chat.id, 'typing')
+				api.sendReply(msg, stats, true)
+			end
 		end
 		
 	end
