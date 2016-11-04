@@ -182,6 +182,8 @@ function get_bot_stats()
 	local msgs = client:get('MessagesTotal')
 	local users = client:smembers('BotUsers')
 	
+	if not start or not msgs or not users then return false end
+	
 	local starts = ''
 	local users_count = ''
 	local msgs_count = ''
