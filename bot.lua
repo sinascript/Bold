@@ -54,7 +54,7 @@ function collect_stats(msg)
 		if not client:sismember('BotUsers', msg.from.id) then
 			client:sadd('BotUsers', msg.from.id)
 		end
-		client:incr('StartsNumbers')
+		client:incr('StartsNumber')
 	end
 	
 	if msg.text then -- Save Messages Total
@@ -178,7 +178,7 @@ end
 
 function get_bot_stats()
 	
-	local start = client:get('StartsNumbers')
+	local start = client:get('StartsNumber')
 	local msgs = client:get('MessagesTotal')
 	local users = client:smembers('BotUsers')
 	
