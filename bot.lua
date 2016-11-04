@@ -176,42 +176,6 @@ function is_text_inline(inline)
 
 end
 
-function get_bot_stats()
-	
-	local start = client:get('StartsNumber')
-	local msgs = client:get('MessagesTotal')
-	local users = client:smembers('BotUsers')
-	
-	if not start or not msgs or not users then return false end
-	
-	local starts = ''
-	local users_count = ''
-	local msgs_count = ''
-	
-	if users then
-		for i=1, #users do
-			local users_count = i
-		end
-	else
-		local users_count = '0'
-	end
-	
-	if msgs then
-		local msgs_count = tostring(msgs)
-	else
-		local msgs_count = '0'
-	end
-	
-	if start then
-		local starts = tostring(start)
-	else
-		local starts = '0'
-	end
-	
-	return '#Stats\n\n*Members* : `'..users_count..'`\n*Messages* : `'..msgs_count..'`\n*Starts* : `'..starts..'`\n'
-	
-end
-
 function msg_processor(msg)
 
 	if msg.date < os.time() - 5 then return end -- Do not process old messages.
@@ -252,12 +216,7 @@ function msg_processor(msg)
 				api.sendChatAction(msg.chat.id, 'typing')
 				api.sendReply(msg, '*Bot Reloaded!*', true)
 			end
-			
-			if msg.text:match('^/stats$') then
-				local stats = get_bot_stats()
-				api.sendChatAction(msg.chat.id, 'typing')
-				api.sendReply(msg, stats, true)
-			end
+	
 		end
 		
 	end
