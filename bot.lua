@@ -197,18 +197,18 @@ function get_bot_stats()
 	end
 	
 	if msgs then
-		local msgs_count = msgs
+		local msgs_count = tostring(msgs)
 	else
 		local msgs_count = '0'
 	end
 	
 	if start then
-		local starts = start
+		local starts = tostring(start)
 	else
 		local starts = '0'
 	end
 	
-	return '#Stats\n*Members* : `'..users_count..'`\n*Messages* : `'..msgs_count..'`\n*Starts* : `'..starts..'`\n'
+	return '#Stats\n\n*Members* : `'..users_count..'`\n*Messages* : `'..msgs_count..'`\n*Starts* : `'..starts..'`\n'
 	
 end
 
