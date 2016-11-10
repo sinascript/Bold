@@ -12,7 +12,7 @@ function check_config()
 
 	config = dofile('config.lua') -- Load configuration file.
 	
-	if not config.bot_api_key or config.bot_api_key == '' then
+	if not config.bot_api_key or config.bot_api_key == 'a' then
 	
 		return 'API KEY MISSING!'
 		
